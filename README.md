@@ -1,6 +1,6 @@
-# vue-pro-table
+# vue3-pro-table
 
-一个基于 ElementUI 封装的 table 列表页组件，将包含搜索、列表、分页等功能的页面封装成一个组件
+一个基于 ElementPlus 封装的 table 列表页组件，将包含搜索、列表、分页等功能的页面封装成一个组件
 
 ## 特性
 
@@ -33,11 +33,11 @@ yarn add vue3-pro-table
 > ```js
 > // 引入element-plus
 > import ElementPlus from "element-plus";
-> import 'element-plus/lib/theme-chalk/index.css';
+> import "element-plus/lib/theme-chalk/index.css";
 > // 引入中文语言包
-> import 'dayjs/locale/zh-cn'
-> import locale from 'element-plus/lib/locale/lang/zh-cn'
-> app.use(ElementPlus, { locale })
+> import "dayjs/locale/zh-cn";
+> import locale from "element-plus/lib/locale/lang/zh-cn";
+> app.use(ElementPlus, { locale });
 > ```
 
 ```js
@@ -60,44 +60,43 @@ app.use(Vue3ProTable);
 
 <script>
 import { defineComponent, reactive, ref, toRefs } from "vue";
-import {getUserList} from 'src/api/xxx';
+import { getUserList } from "src/api/xxx";
 export default defineComponent({
   setup() {
     const state = reactive({
-        // 表格列配置，大部分属性跟el-table-column配置一样
-        columns: [
-          { label: '序号', type: 'index' },
-          { label: '名称', prop: 'nickName', width: 180 },
-          { label: '邮箱', prop: 'userEmail' },
-          {
-            label: '操作',
-            fixed: 'right',
-            width: 180,
-            align: 'center',
-            tdSlot: 'operate', // 自定义单元格内容的插槽名称
-          },
-        ],    
-    })
-    
+      // 表格列配置，大部分属性跟el-table-column配置一样
+      columns: [
+        { label: "序号", type: "index" },
+        { label: "名称", prop: "nickName", width: 180 },
+        { label: "邮箱", prop: "userEmail" },
+        {
+          label: "操作",
+          fixed: "right",
+          width: 180,
+          align: "center",
+          tdSlot: "operate", // 自定义单元格内容的插槽名称
+        },
+      ],
+    });
+
     // 请求函数
     const getList = async (params) => {
       // params是从组件接收的，包含分页和搜索字段。
-      const { data } = await getUserList(params)
+      const { data } = await getUserList(params);
 
       // 必须要返回一个对象，包含data数组和total总数
       return {
         data: data.list,
         total: +data.total,
-      }
-    }
-    
+      };
+    };
+
     return {
-        ...toRefs(state),
-        getList
-    }
-    
-  }
-})
+      ...toRefs(state),
+      getList,
+    };
+  },
+});
 </script>
 ```
 
@@ -237,10 +236,7 @@ export default defineComponent({
         @click="$router.push({ name: 'userAdd' })"
         >创建账号</el-button
       >
-      <el-button
-        type="danger"
-        icon="el-icon-refresh"
-        @click="refresh"
+      <el-button type="danger" icon="el-icon-refresh" @click="refresh"
         >刷新</el-button
       >
     </template>
@@ -293,229 +289,228 @@ export default defineComponent({
 
 <script>
 import { defineComponent, reactive, ref, toRefs } from "vue";
-import {getUserList} from 'src/api/xxx';
+import { getUserList } from "src/api/xxx";
 export default defineComponent({
   setup() {
     const state = reactive({
-        // 表格列配置，大部分属性跟el-table-column配置一样
-        columns: [
-            { label: '', type: 'expand', tdSlot: 'expand' },
-            { label: '全选', type: 'selection' },
-            { label: '序号', type: 'index' },
-            { label: '账户名称', prop: 'nickName', sortable: true },
-            { label: '账号', prop: 'userEmail', width: 80 },
-            {
-              label: '状态',
-              prop: 'status',
-              tdSlot: 'status',
-              filters: [
-                { text: '启用', value: 1 },
-                { text: '禁用', value: 0 },
-              ],
-            },
-            { label: '创建时间', prop: 'createTime', align: 'right' },
-            { label: '最后修改时间', prop: 'updateTime' },
-            {
-              label: '操作',
-              labelSlot: 'th-operate',
-              fixed: 'right',
-              width: 180,
-              align: 'center',
-              tdSlot: 'page-operate',
-            },
-        ],
-        // 搜索配置
-        searchConfig: {
-            labelWidth: '90px',
-            inputWidth: '360px',
-            fields: [
+      // 表格列配置，大部分属性跟el-table-column配置一样
+      columns: [
+        { label: "", type: "expand", tdSlot: "expand" },
+        { label: "全选", type: "selection" },
+        { label: "序号", type: "index" },
+        { label: "账户名称", prop: "nickName", sortable: true },
+        { label: "账号", prop: "userEmail", width: 80 },
+        {
+          label: "状态",
+          prop: "status",
+          tdSlot: "status",
+          filters: [
+            { text: "启用", value: 1 },
+            { text: "禁用", value: 0 },
+          ],
+        },
+        { label: "创建时间", prop: "createTime", align: "right" },
+        { label: "最后修改时间", prop: "updateTime" },
+        {
+          label: "操作",
+          labelSlot: "th-operate",
+          fixed: "right",
+          width: 180,
+          align: "center",
+          tdSlot: "page-operate",
+        },
+      ],
+      // 搜索配置
+      searchConfig: {
+        labelWidth: "90px",
+        inputWidth: "360px",
+        fields: [
+          {
+            type: "text",
+            label: "账户名称",
+            name: "nickName",
+            defaultValue: "abc",
+          },
+          {
+            type: "textarea",
+            label: "描述",
+            name: "description",
+          },
+          {
+            label: "状态",
+            name: "status",
+            type: "select",
+            defaultValue: 1,
+            options: [
               {
-                type: 'text',
-                label: '账户名称',
-                name: 'nickName',
-                defaultValue: 'abc',
+                name: "已发布",
+                value: 1,
               },
               {
-                type: 'textarea',
-                label: '描述',
-                name: 'description',
-              },
-              {
-                label: '状态',
-                name: 'status',
-                type: 'select',
-                defaultValue: 1,
-                options: [
-                  {
-                    name: '已发布',
-                    value: 1,
-                  },
-                  {
-                    name: '未发布',
-                    value: 0,
-                  },
-                ],
-              },
-              {
-                label: '性别',
-                name: 'sex',
-                type: 'radio',
-                options: [
-                  {
-                    name: '男',
-                    value: 1,
-                  },
-                  {
-                    name: '女',
-                    value: 0,
-                  },
-                ],
-              },
-              {
-                label: '城市',
-                name: 'city',
-                type: 'radio-button',
-                options: [
-                  {
-                    name: '北京',
-                    value: 'bj',
-                  },
-                  {
-                    name: '上海',
-                    value: 'sh',
-                  },
-                  {
-                    name: '广州',
-                    value: 'gz',
-                  },
-                  {
-                    name: '深圳',
-                    value: 'sz',
-                  },
-                ],
-              },
-              {
-                label: '爱好',
-                name: 'hobby',
-                type: 'checkbox',
-                defaultValue: ['吃饭'],
-                options: [
-                  {
-                    name: '吃饭',
-                    value: '吃饭',
-                  },
-                  {
-                    name: '睡觉',
-                    value: '睡觉',
-                  },
-                  {
-                    name: '打豆豆',
-                    value: '打豆豆',
-                  },
-                ],
-                transform: (val) => val.join(','),
-              },
-              {
-                label: '水果',
-                name: 'fruit',
-                type: 'checkbox-button',
-                options: [
-                  {
-                    name: '苹果',
-                    value: '苹果',
-                  },
-                  {
-                    name: '香蕉',
-                    value: '香蕉',
-                  },
-                  {
-                    name: '橘子',
-                    value: '橘子',
-                  },
-                  {
-                    name: '葡萄',
-                    value: '葡萄',
-                  },
-                ],
-                transform: (val) => val.join(','),
-              },
-              {
-                label: '日期',
-                name: 'date',
-                type: 'date',
-              },
-              {
-                label: '时间',
-                name: 'datetime',
-                type: 'datetime',
-                defaultValue: '2020-10-10 8:00:00',
-              },
-              {
-                label: '日期范围',
-                name: 'daterange',
-                type: 'daterange',
-                trueNames: ['startDate', 'endDate'],
-                style: { width: '360px' },
-              },
-              {
-                label: '时间范围',
-                name: 'datetimerange',
-                type: 'datetimerange',
-                trueNames: ['startTime', 'endTime'],
-                style: { width: '360px' },
-                defaultValue: ['2020-10-10 9:00:00', '2020-10-11 18:30:00'],
-              },
-              {
-                label: '数量',
-                name: 'num',
-                type: 'number',
-                min: 0,
-                max: 10,
+                name: "未发布",
+                value: 0,
               },
             ],
-        },
-        // 分页配置
-        paginationConfig: {
-          layout: 'total, prev, pager, next, sizes', // 分页组件显示哪些功能
-          pageSize: 5, // 每页条数
-          pageSizes: [5, 10, 20, 50],
-        }   
-    })
-    
+          },
+          {
+            label: "性别",
+            name: "sex",
+            type: "radio",
+            options: [
+              {
+                name: "男",
+                value: 1,
+              },
+              {
+                name: "女",
+                value: 0,
+              },
+            ],
+          },
+          {
+            label: "城市",
+            name: "city",
+            type: "radio-button",
+            options: [
+              {
+                name: "北京",
+                value: "bj",
+              },
+              {
+                name: "上海",
+                value: "sh",
+              },
+              {
+                name: "广州",
+                value: "gz",
+              },
+              {
+                name: "深圳",
+                value: "sz",
+              },
+            ],
+          },
+          {
+            label: "爱好",
+            name: "hobby",
+            type: "checkbox",
+            defaultValue: ["吃饭"],
+            options: [
+              {
+                name: "吃饭",
+                value: "吃饭",
+              },
+              {
+                name: "睡觉",
+                value: "睡觉",
+              },
+              {
+                name: "打豆豆",
+                value: "打豆豆",
+              },
+            ],
+            transform: (val) => val.join(","),
+          },
+          {
+            label: "水果",
+            name: "fruit",
+            type: "checkbox-button",
+            options: [
+              {
+                name: "苹果",
+                value: "苹果",
+              },
+              {
+                name: "香蕉",
+                value: "香蕉",
+              },
+              {
+                name: "橘子",
+                value: "橘子",
+              },
+              {
+                name: "葡萄",
+                value: "葡萄",
+              },
+            ],
+            transform: (val) => val.join(","),
+          },
+          {
+            label: "日期",
+            name: "date",
+            type: "date",
+          },
+          {
+            label: "时间",
+            name: "datetime",
+            type: "datetime",
+            defaultValue: "2020-10-10 8:00:00",
+          },
+          {
+            label: "日期范围",
+            name: "daterange",
+            type: "daterange",
+            trueNames: ["startDate", "endDate"],
+            style: { width: "360px" },
+          },
+          {
+            label: "时间范围",
+            name: "datetimerange",
+            type: "datetimerange",
+            trueNames: ["startTime", "endTime"],
+            style: { width: "360px" },
+            defaultValue: ["2020-10-10 9:00:00", "2020-10-11 18:30:00"],
+          },
+          {
+            label: "数量",
+            name: "num",
+            type: "number",
+            min: 0,
+            max: 10,
+          },
+        ],
+      },
+      // 分页配置
+      paginationConfig: {
+        layout: "total, prev, pager, next, sizes", // 分页组件显示哪些功能
+        pageSize: 5, // 每页条数
+        pageSizes: [5, 10, 20, 50],
+      },
+    });
+
     // 请求函数
     const getList = async (params) => {
       // params是从组件接收的，包含分页和搜索字段。
-      const { data } = await getUserList(params)
+      const { data } = await getUserList(params);
 
       // 必须要返回一个对象，包含data数组和total总数
       return {
         data: data.list,
         total: +data.total,
-      }
-    }
-    
+      };
+    };
+
     // 选择
     const handleSelectionChange = (arr) => {
-      console.log(arr)
-    }
-    
-    const proTable = ref(null)
-    
+      console.log(arr);
+    };
+
+    const proTable = ref(null);
+
     // 刷新
     const refresh = () => {
-        proTable.value.refresh()
-    }
-    
+      proTable.value.refresh();
+    };
+
     return {
-        ...toRefs(state),
-        getList,
-        handleSelectionChange,
-        proTable,
-        refresh
-    }
-    
-  }
-})
+      ...toRefs(state),
+      getList,
+      handleSelectionChange,
+      proTable,
+      refresh,
+    };
+  },
+});
 </script>
 ```
 
