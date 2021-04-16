@@ -459,10 +459,8 @@ export default defineComponent({
     .search-btn {
       margin-left: auto;
     }
-    ::v-deep {
-      .el-input-number .el-input__inner {
-        text-align: left;
-      }
+    ::v-deep(.el-input-number .el-input__inner) {
+      text-align: left;
     }
   }
   .head {
