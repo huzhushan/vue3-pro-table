@@ -1,6 +1,6 @@
 {
   "name": "vue3-pro-table",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "一个基于ElementPlus封装的table列表页组件，将包含搜索、列表、分页等功能的页面封装成一个组件",
   "main": "index.js",
   "scripts": {
