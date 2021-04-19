@@ -1,5 +1,8 @@
 # vue3-pro-table
 
+> 之前有一个[vue-pro-table](https://github.com/huzhushan/vue-pro-table)是基于 vue2 开发的
+> vue3-pro-table 是基于 vue3 开发
+
 一个基于 ElementPlus 封装的 table 列表页组件，将包含搜索、列表、分页等功能的页面封装成一个组件
 
 ## 特性
