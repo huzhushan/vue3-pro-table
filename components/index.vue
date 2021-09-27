@@ -17,8 +17,9 @@
         :label="item.label"
         :prop="item.name"
       >
+        <slot v-if="item.type === 'custom'" :name="item.slot" />
         <el-select
-          v-if="item.type === 'select'"
+          v-else-if="item.type === 'select'"
           v-model="searchModel[item.name]"
           :filterable="!!item.filterable"
           :multiple="!!item.multiple"
@@ -175,16 +176,20 @@
         v-loading="loading"
         :data="tableData"
         :row-key="rowKey"
+        :tree-props="tree.treeProps"
+        :lazy="tree.lazy"
+        :load="tree.load"
         tooltip-effect="dark"
         stripe
         :border="border"
         @selection-change="handleSelectionChange"
+        ref="table"
       >
         <el-table-column
           v-for="item in columns"
           :key="item.label"
           :filter-method="item.filters && filterHandler"
-          show-overflow-tooltip
+          :show-overflow-tooltip="!item.wrap"
           v-bind="item"
         >
           <template #header="scope" v-if="!!item.labelSlot">
@@ -298,7 +303,7 @@ export default defineComponent({
     // 表头配置
     columns: {
       type: Array,
-      default: function (params) {
+      default: function () {
         return [];
       },
     },
@@ -491,4 +496,3 @@ export default defineComponent({
   }
 }
 </style>
-
