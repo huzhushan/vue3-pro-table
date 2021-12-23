@@ -317,6 +317,10 @@ export default defineComponent({
       type: [Boolean, Object],
       default: () => ({}),
     },
+    tree: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   setup(props, { emit }) {
     // 优化搜索字段，
